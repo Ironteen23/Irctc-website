@@ -18,14 +18,29 @@ const createTrain = async (req, res) => {
   }
 };
 
-const updateTrain = (req, res) => {
+const updateTrain = async (req, res) => {
+  try {
+    const { id: trainName } = req.params;
+    const train = await Train.findOneAndUpdate({ name: trainName }, req.body);
+    if (!train) {
+      return res.status(404).json({ msg: `No train found` });
+    }
+    res.status(200).json({ name: trainName }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
   res.send("update train");
 };
 
 const getTrain = async (req, res) => {
   try {
     const { id: trainSource } = req.params;
-    const train = await Train.findOne({ source: trainSource });
+    const train = await Train.findOne({
+      "stationList.stationCode": trainSource,
+    });
 
     if (!train) {
       return res.status(404).json({ msg: `No trains Found` });
@@ -35,12 +50,21 @@ const getTrain = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 
-  res.json({ id: req.params.id });
+  // res.json({ id: req.params.id });
 };
 // will give the specific train currently gives train by source destination
 
-const deleteTrain = (req, res) => {
-  res.send("delete train");
+const deleteTrain = async (req, res) => {
+  try {
+    const { id: trainName } = req.params;
+    const train = await Train.findOneAndDelete({ name: trainName });
+    if (!train) {
+      return res.status(404).json({ msg: `No trains Found` });
+    }
+    res.status(200).json({ train: null, status: "sucess" });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 module.exports = {

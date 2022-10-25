@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "../../styles/Navbar.module.css";
 
 const navbar = () => {
@@ -8,9 +9,15 @@ const navbar = () => {
         <h1>logo</h1>
       </div>
       <ul className={styles["navbar-links-cont"]}>
-        <li className={styles["navbar-links"]}>Home</li>
-        <li className={styles["navbar-links"]}>Login</li>
-        <li className={styles["navbar-links"]}>SignUp</li>
+        <Link href={"/"}>
+          <li className={styles["navbar-links"]}>Home</li>
+        </Link>
+        <Link href={"/login"}>
+          <li className={styles["navbar-links"]}>Login</li>
+        </Link>
+        <Link href={"/signup"}>
+          <li className={styles["navbar-links"]}>SignUp</li>
+        </Link>
       </ul>
     </div>
   );

@@ -1,0 +1,38 @@
+.outer-cont{
+    height:400px;
+    margin:auto;
+    margin-top: 100px;
+    width:600px;
+    background-color: aliceblue;
+    box-shadow: 1px 1px 10px black;
+    text-align: center;
+}
+
+
+.login-input {
+    width: 16vw;
+    /* height:45px; */
+    height: 40px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+}
+
+.prop-container{
+    text-align: center;
+    margin:10px;
+    margin-top: 50px;
+    
+}
+.login-btn{
+    background-color:#25D366;
+    border:none;
+    box-shadow: 1px 1px 5px black;
+    margin-top: 25px;
+    width:100px;
+    height:45px;
+    border-radius: 10px;
+    font-size: 1rem;
+}

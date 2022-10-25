@@ -1,16 +1,22 @@
 const express = require("express");
+var cors = require("cors");
 const app = express();
 const trains = require("./routes/trains");
+const users = require("./routes/authRoutes");
 const port = 5000;
 const connectDB = require("./db/connect");
 require("dotenv").config();
+
+app.use(express.static("./public"));
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.use("/api/v1/trains", trains);
+app.use("/api/v1/users", users);
 
 const start = async () => {
   try {
