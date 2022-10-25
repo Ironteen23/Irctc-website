@@ -25,7 +25,7 @@ const signup = () => {
     };
     const body = JSON.stringify(user);
 
-    UserApi.post("/users/", body, config)
+    UserApi.post("/users/signup", body, config)
       .then((res) => {
         console.log(res.data);
       })

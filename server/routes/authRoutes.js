@@ -8,7 +8,8 @@ const {
   updateUser,
 } = require("../controllers/authController");
 
-router.route("/").get(getAllUsers).post(createUser);
+router.route("/signup").post(createUser);
+router.route("/admin").get(getAllUsers);
 router.route("/:id").get(getUser).patch(updateUser);
 // .delete(deleteUser);
 

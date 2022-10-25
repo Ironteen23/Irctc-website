@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/trains", trains);
 app.use("/api/v1/users", users);
+app.use("/api/v1/users/login", users);
+app.use("/api/v1/users/signup", users);
 
 const start = async () => {
   try {
