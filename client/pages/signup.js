@@ -3,9 +3,12 @@ import styles from "../styles/SignUp.module.css";
 import { useState } from "react";
 import UserApi from "./api/UserApi";
 import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const signup = () => {
   const [user, setUser] = useState({ name: "", password: "" });
+  const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -32,10 +35,34 @@ const signup = () => {
       },
       body: JSON.stringify(submitValues),
     });
-    if (response.status === 200) {
-      // setShow(true);
-      toast.success("Registered successfully");
-      // toast.info(`Confirmation email sent`);
+    if (response.status === 201) {
+      setShow(true);
+      toast.success("Registered successfully", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(`sucessfully signup`);
+      toast.info(`Thank you for Signing Up`, {
+        position: "bottom-right",
+      });
+    } else if (response.status === 401) {
+      setShow(true);
+      toast.error(`SAME USERNAME ALREADY EXISTS`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     // setLoading(false);
     const data = await response.json();
@@ -106,6 +133,11 @@ const signup = () => {
           </button>
         </div>
       </div>
+      {show ? (
+        <ToastContainer />
+      ) : //   <p style={{ fontSize: "2rem", color: "black" }}>SIGNUP SUCESSFUL</p>
+      // </div>
+      null}
     </>
   );
 };

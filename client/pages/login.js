@@ -2,9 +2,12 @@ import React from "react";
 import styles from "../styles/Login.module.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const login = () => {
   const [user, setUser] = useState({ name: "", password: "" });
+  const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -32,9 +35,42 @@ const login = () => {
       body: JSON.stringify(submitValues),
     });
     if (response.status === 200) {
-      // setShow(true);
-      toast.success("Login successfully");
+      setShow(true);
+      toast.success("Login successfully", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       // toast.info(`Confirmation email sent`);
+    } else if (response.status === 401) {
+      setShow(true);
+      toast.error(`INCORRECT PASSWORD`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (response.status === 404) {
+      setShow(true);
+      toast.error(`NO User Found , Please Signup`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     // setLoading(false);
     const data = await response.json();
@@ -81,6 +117,10 @@ const login = () => {
           </button>
         </div>
       </div>
+      {show ? (
+        // <div>
+        <ToastContainer />
+      ) : null}
     </>
   );
 };
