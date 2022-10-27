@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/Login.module.css";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const login = () => {
   const [user, setUser] = useState({ name: "", password: "" });
@@ -14,6 +15,31 @@ const login = () => {
         [e.target.name]: e.target.value,
       };
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("clicked on register");
+    console.log(user);
+    const submitValues = { ...user };
+    console.log("Values submitted: ", submitValues);
+    const response = await fetch("http://localhost:5000/api/v1/users/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitValues),
+    });
+    if (response.status === 200) {
+      // setShow(true);
+      toast.success("Login successfully");
+      // toast.info(`Confirmation email sent`);
+    }
+    // setLoading(false);
+    const data = await response.json();
+
+    console.log(data);
   };
 
   return (
@@ -50,7 +76,9 @@ const login = () => {
             </div>
           </form>
 
-          <button className={styles["login-btn"]}>Login</button>
+          <button className={styles["login-btn"]} onClick={handleSubmit}>
+            Login
+          </button>
         </div>
       </div>
     </>
