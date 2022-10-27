@@ -12,7 +12,7 @@ const navbar = () => {
         <Link href={"/"}>
           <li className={styles["navbar-links"]}>Home</li>
         </Link>
-        <Link href={"/login"}>
+        <Link href={"/login/"}>
           <li className={styles["navbar-links"]}>Login</li>
         </Link>
         <Link href={"/signup"}>

@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "../styles/Login.module.css";
+import styles from "../../styles/Login.module.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const login = () => {
+const index = () => {
   const [user, setUser] = useState({ name: "", password: "" });
   const [show, setShow] = useState(false);
 
@@ -115,6 +116,10 @@ const login = () => {
           <button className={styles["login-btn"]} onClick={handleSubmit}>
             Login
           </button>
+
+          <div className={styles["change-link"]}>
+            <Link href={"/login/changePassword"}>Change Password</Link>
+          </div>
         </div>
       </div>
       {show ? (
@@ -125,4 +130,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default index;

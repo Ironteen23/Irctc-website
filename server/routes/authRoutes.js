@@ -12,6 +12,7 @@ const {
 
 router.route("/signup").post(createUser);
 router.route("/login").post(loginUser);
+router.route("/login/change").patch(updateUser);
 router.route("/admin").get(getAllUsers);
 router.route("/:id").get(getUser).patch(updateUser);
 // .delete(deleteUser);

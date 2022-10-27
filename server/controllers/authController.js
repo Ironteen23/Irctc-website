@@ -48,19 +48,36 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { id: userName } = req.params;
-    const user = await User.findOneAndUpdate({ name: userName }, req.body);
+    const { name, oldpassword, newpassword } = req.body;
+    const user = await User.findOne(
+      { name: name }
+      // {
+      //   name: name,
+      //   password: newpassword,
+      // }
+    );
     if (!user) {
-      return res.status(404).json({ msg: `No user found` });
+      return res.status(404).json({ msg: `Incorrect User or Password` });
+    } else if (user.password !== oldpassword) {
+      return res.status(401).json({ msg: `Incorrect Password` });
     }
-    res.status(200).json({ name: userName }, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedUser = await User.findOneAndUpdate(
+      { name: name },
+      {
+        password: newpassword,
+      }
+    );
+
+    res.status(200).json(
+      // updatedUser, {
+      // new: true,
+      // runValidators: true,}
+      { msg: `changed sucessfully` }
+    );
   } catch (error) {
     res.status(500).json({ msg: error });
   }
-  res.send("update train");
+  // res.send("update train");
 };
 
 const getUser = async (req, res) => {

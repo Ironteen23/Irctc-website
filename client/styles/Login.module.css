@@ -36,3 +36,10 @@
     border-radius: 10px;
     font-size: 1rem;
 }
+
+.change-link{
+    margin-top:10px;
+    color: red;
+    margin-left:100px;
+    font-size:1.4rem;
+}
