@@ -1,30 +1,12 @@
 const mongoose = require("mongoose");
-const TrainSchema = new mongoose.Schema({
+
+const SeatSchema = new mongoose.Schema({
   name: {
     type: String,
     requiured: [true, "Must provide a name"],
     trim: true,
   },
-  src: {
-    type: String,
-    requiured: [true, "Must provide a source"],
-    trim: true,
-  },
-  dest: {
-    type: String,
-    requiured: [true, "Must provide a destination"],
-    trim: true,
-  },
-  distance: {
-    type: String,
-    requiured: [true, "Must provide the distance"],
-    trim: true,
-  },
-  // arrivalTime: {
-  //   type: String,
-  //   requiured: [true, "Must provide a arrivalTime"],
-  //   trim: true,
-  // },
+
   ACSeats: {
     type: Number,
     requiured: [true, "Must provide ACseats"],
@@ -50,7 +32,7 @@ const TrainSchema = new mongoose.Schema({
   },
 
   date: {
-    type: String,
+    type: Date,
     requiured: [true, "Must provide Date"],
     trim: true,
   },
@@ -68,4 +50,4 @@ const TrainSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Train", TrainSchema);
+module.exports = mongoose.model("Seat", SeatSchema);

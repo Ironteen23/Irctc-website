@@ -9,7 +9,8 @@ const {
   deleteTrain,
 } = require("../controllers/trains");
 
-router.route("/").get(getAllTrains).post(createTrain);
+router.route("/").post(createTrain);
+router.route("/specific").post(getAllTrains);
 router.route("/:id").get(getTrain).patch(updateTrain).delete(deleteTrain);
 
 module.exports = router;

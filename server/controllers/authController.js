@@ -18,6 +18,9 @@ const createUser = async (req, res) => {
   //   const hashedPassword = await bcrypt.hash(password, salt);
   console.log(name);
   console.log(password);
+  if (!name || !password) {
+    return res.status(400).json({ msg: `Empty username or password` });
+  }
   try {
     const alreadyRegistered = await User.findOne({ name: name });
     if (alreadyRegistered) {
@@ -34,9 +37,9 @@ const createUser = async (req, res) => {
       await newUser.save();
       const token = jwt.sign(
         { userId: newUser._id, name: newUser.name },
-        "jwtSecret",
+        process.env.JWT_SECRET,
         {
-          expiresIn: "30d",
+          expiresIn: process.env.JWT_LIFETIME,
         }
       );
       res.status(201).json({ newUser: { name: newUser.name }, token });

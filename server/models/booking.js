@@ -1,10 +1,17 @@
 const mongoose = require("mongoose");
-const TrainSchema = new mongoose.Schema({
-  name: {
+const BookingSchema = new mongoose.Schema({
+  username: {
     type: String,
     requiured: [true, "Must provide a name"],
     trim: true,
   },
+
+  trainName: {
+    type: String,
+    requiured: [true, "Must provide a name"],
+    trim: true,
+  },
+
   src: {
     type: String,
     requiured: [true, "Must provide a source"],
@@ -25,28 +32,44 @@ const TrainSchema = new mongoose.Schema({
   //   requiured: [true, "Must provide a arrivalTime"],
   //   trim: true,
   // },
-  ACSeats: {
-    type: Number,
-    requiured: [true, "Must provide ACseats"],
+  // ACSeats: {
+  //   type: Number,
+  //   requiured: [true, "Must provide ACseats"],
+  //   trim: true,
+  // },
+
+  // genSeats: {
+  //   type: Number,
+  //   requiured: [true, "Must provide genseats"],
+  //   trim: true,
+  // },
+
+  // acFare: {
+  //   type: Number,
+  //   requiured: [true, "Must provide ACfare"],
+  //   trim: true,
+  // },
+
+  // genFare: {
+  //   type: Number,
+  //   requiured: [true, "Must provide genFare"],
+  //   trim: true,
+  // },
+  coachType: {
+    type: String,
+    requiured: [true, "Must provide coachType"],
+    enum: ["AC", "General"],
     trim: true,
   },
 
-  genSeats: {
+  Qty: {
     type: Number,
-    requiured: [true, "Must provide genseats"],
-    trim: true,
+    requiured: [true, "Must provide Qty"],
   },
 
-  acFare: {
+  fare: {
     type: Number,
-    requiured: [true, "Must provide ACfare"],
-    trim: true,
-  },
-
-  genFare: {
-    type: Number,
-    requiured: [true, "Must provide genFare"],
-    trim: true,
+    requiured: [true, "Must provide fare"],
   },
 
   date: {
@@ -68,4 +91,4 @@ const TrainSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Train", TrainSchema);
+module.exports = mongoose.model("Booking", BookingSchema);

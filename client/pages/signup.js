@@ -63,6 +63,18 @@ const signup = () => {
         progress: undefined,
         theme: "light",
       });
+    } else if (response.status === 400) {
+      setShow(true);
+      toast.error(`Please Enter Username , Password`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     // setLoading(false);
     const data = await response.json();
