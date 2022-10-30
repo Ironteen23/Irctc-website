@@ -47,9 +47,9 @@ const updateTrain = async (req, res) => {
 
 const getTrain = async (req, res) => {
   try {
-    const { id: trainSource } = req.params;
+    const { id: trainID } = req.params;
     const train = await Train.findOne({
-      name: trainSource,
+      _id: trainID,
     });
 
     if (!train) {

@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 const BookingSchema = new mongoose.Schema({
+  train_id: {
+    type: String,
+    requiured: [true, "Must provide a name"],
+    trim: true,
+  },
+
   username: {
     type: String,
     requiured: [true, "Must provide a name"],

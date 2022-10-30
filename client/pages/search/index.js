@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import styles from "../styles/Search.module.css";
+import styles from "../../styles/Search.module.css";
+
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const search = () => {
+const index = () => {
   const [user, setUser] = useState({ src: "", dest: "", date: "" });
   const [show, setShow] = useState(false);
   const [details, setDetails] = useState(false);
@@ -167,35 +169,41 @@ const search = () => {
         <>
           {detarr ? (
             <div>
-              {detarr.map((arr, i) => {
+              {detarr.map((arr) => {
                 return (
-                  <div className={styles["train-info-cont"]} key={i}>
-                    <h1 className={styles["train-name"]}> {arr.name}</h1>
-                    <h1 className={styles["train-date"]}>{arr.date}</h1>
-                    <h3 className={styles["train-dist"]}>{arr.distance}km</h3>
-                    <h2 className={styles["train-src"]}>
-                      {arr.depTime} |{arr.src}
-                    </h2>
-                    <h2 className={styles["train-dest"]}>
-                      {arr.arrivalTime} |{arr.dest}
-                    </h2>
-                    <div className={styles["train-coach-cont"]}>
-                      <div className={styles["train-coach"]}>
-                        <h2>GENERAL</h2>
-                        <h3 style={{ color: "green" }}>
-                          Available: {arr.genSeats}
-                        </h3>
-                        <h3>Fare :{arr.genFare}</h3>
-                      </div>
-                      <div className={styles["train-coach"]}>
-                        <h2>3 AC</h2>
-                        <h3 style={{ color: "green" }}>
-                          Available: {arr.ACSeats}
-                        </h3>
-                        <h3>Fare :{arr.acFare}</h3>
+                  <Link href={"/search/" + arr._id} key={arr._id}>
+                    <div className={styles["train-info-cont"]}>
+                      <h1 className={styles["train-name"]}> {arr.name}</h1>
+                      <h1 className={styles["train-date"]}>{arr.date}</h1>
+                      <h2 className={styles["train-id"]}>
+                        Train id :{arr._id}
+                      </h2>
+                      <h3 className={styles["train-dist"]}>{arr.distance}km</h3>
+                      <h2 className={styles["train-src"]}>
+                        {arr.depTime} |{arr.src}
+                      </h2>
+                      <h2 className={styles["train-dest"]}>
+                        {arr.arrivalTime} |{arr.dest}
+                      </h2>
+                      <div className={styles["train-coach-cont"]}>
+                        <div className={styles["train-coach"]}>
+                          <h2>GENERAL</h2>
+                          <h3 style={{ color: "green" }}>
+                            Available: {arr.genSeats}
+                          </h3>
+                          <h3>Fare :{arr.genFare}</h3>
+                        </div>
+                        <div className={styles["train-coach"]}>
+                          <h2>3 AC</h2>
+                          <h3 style={{ color: "green" }}>
+                            Available: {arr.ACSeats}
+                          </h3>
+                          <h3>Fare :{arr.acFare}</h3>
+                        </div>
+                        <button className={styles["book-btn"]}>BOOK NOW</button>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
               {/* <h1>{detarr[0].name}</h1>
@@ -212,4 +220,4 @@ const search = () => {
   );
 };
 
-export default search;
+export default index;
