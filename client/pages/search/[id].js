@@ -23,6 +23,7 @@ const test = () => {
   const [show, setShow] = useState(false);
   const [ticket, setTicket] = useState({
     trainName: "",
+    train_id: "",
     username: "",
     src: "",
     dest: "",
@@ -42,7 +43,7 @@ const test = () => {
   // setTicket((prevState) => {
   //   return {
   //     ...prevState,
-  //     ["username"]: { user },
+  //     ["username"]: user,
   //   };
   // });
 
@@ -94,10 +95,14 @@ const test = () => {
           //   setTicket
           ["date"]: data.date,
 
+          ["train_id"]: data._id,
+
           //   setTicket
           ["arrivalTime"]: data.arrivalTime,
           //   setTicket
           ["depTime"]: data.depTime,
+
+          ["username"]: user,
         };
       });
 
@@ -138,6 +143,7 @@ const test = () => {
           ...prevState,
           ["fare"]: a * q,
           ["username"]: user,
+          // ["coachType"]:
         };
       });
     } else {
@@ -157,12 +163,88 @@ const test = () => {
     // console.log(a);
   };
 
-  const bookTicket = async () => {
-    const res = await fetch("http://localhost:5000/api/v1/booking/");
-    const train = await res.json();
-    console.log("ttrain");
-    console.log(train);
-    setData(train.train);
+  const changeCoachA = () => {
+    setTicket((prevState) => {
+      return {
+        ...prevState,
+        ["coachType"]: "AC",
+      };
+    });
+  };
+
+  const changeCoachG = () => {
+    setTicket((prevState) => {
+      return {
+        ...prevState,
+        ["coachType"]: "General",
+      };
+    });
+  };
+
+  const bookTicket = async (e) => {
+    // const res = await fetch("http://localhost:5000/api/v1/booking/");
+    // const train = await res.json();
+    // console.log("ttrain");
+    // console.log(train);
+    // setData(train.train);
+    e.preventDefault();
+    console.log("clicked on register");
+    console.log(ticket);
+    const submitValues = { ...ticket };
+    console.log("Values submitted: ", submitValues);
+    const response = await fetch("http://localhost:5000/api/v1/bookings/", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitValues),
+    });
+    if (response.status === 201) {
+      setShow(true);
+      toast.success("Booking successfull", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(`sucessfully signup`);
+      toast.info(`Thank you for Choosing Us`, {
+        position: "bottom-right",
+      });
+    } else if (response.status === 401) {
+      setShow(true);
+      toast.error(`SAME USERNAME ALREADY EXISTS`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (response.status === 500) {
+      setShow(true);
+      toast.error(`Internal Error Please Try Again`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    // setLoading(false);
+    const data = await response.json();
+
+    console.log(data);
   };
 
   return (
@@ -202,8 +284,8 @@ const test = () => {
                   onChange={handleChange}
                   name="coachType"
                 >
-                  <option>AC</option>
-                  <option>General</option>
+                  <option onClick={changeCoachA}>AC</option>
+                  <option onClick={changeCoachG}>General</option>
                 </select>
               </label>
             </div>
@@ -215,6 +297,7 @@ const test = () => {
         ) : (
           <h2>Loading</h2>
         )}
+        {show ? <ToastContainer /> : null}
       </div>
     </>
   );

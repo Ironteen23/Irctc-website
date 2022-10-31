@@ -86,27 +86,32 @@ const index = () => {
     const data = await response.json();
 
     if (response.status === 200) {
-      setLoggedName(data.user.name);
+      // myContext.action(data.user.name);
+      myContext.toggle();
+      myContext.isloggedIn = true;
+      myContext.action(user.name);
+      console.log("DATA");
+      console.log(user.name);
       // myContext.user_name = data.user.name;
     }
 
     console.log("USERNAME");
     console.log(loggedname);
-    console.log("DATA");
-    console.log(data);
+    // console.log("DATA");
+    // console.log(data.user.name[0]);
   };
 
   useEffect(() => {
     handleSubmit;
     // setLoggedName(data.name);
-    console.log("USERNAME");
-    console.log(loggedname);
-    myContext.loggedusername = loggedname;
+    // console.log("USERNAME");
+    // console.log(loggedname);
+    // // myContext.loggedusername = loggedname;
     console.log("LOLERS");
     console.log(myContext.loggedusername);
-    // console.log("DATA");
-    // console.log(data);
-  }, [loggedname]);
+    console.log("login state");
+    console.log(myContext.isloggedIn);
+  }, [loggedname, myContext.isloggedIn]);
 
   return (
     <>

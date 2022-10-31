@@ -30,7 +30,7 @@ const createBooking = async (req, res) => {
       return res.status(400).json({ msg: `no such Train exists` });
     } else if (req.body.coachType === "AC") {
       const b = train.ACSeats - a;
-      const newtrain = await Train.findOne(
+      const newtrain = await Train.findOneAndUpdate(
         {
           _id: id,
         },
@@ -38,10 +38,10 @@ const createBooking = async (req, res) => {
           ACSeats: b,
         }
       );
-      return res.status(201).json({ book });
+      return res.status(201).json({ book, newtrain });
     }
     const b = train.genSeats - a;
-    const newtrain = await Train.findOne(
+    const newtrain = await Train.findOneAndUpdate(
       {
         _id: id,
       },
@@ -50,7 +50,7 @@ const createBooking = async (req, res) => {
       }
     );
 
-    return res.status(201).json({ book });
+    return res.status(201).json({ book, newtrain });
   } catch (error) {
     res.status(500).json({ msg: error });
   }

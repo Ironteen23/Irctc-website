@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import styles from "../../styles/Navbar.module.css";
 import { Route, Routes } from "react-router-dom";
-import Login from "../../pages/login/index";
-import Front from "../../pages/index";
-import SignUp from "../../pages/signup";
+import { useContext } from "react";
+import AppContext from "../AppContext/AppContext";
 {
   /* <Routes>
   <Route index element={<App />} />
@@ -14,6 +13,17 @@ import SignUp from "../../pages/signup";
 }
 
 const navbar = () => {
+  const myContext = useContext(AppContext);
+
+  useEffect(
+    () => {
+      console.log("State of logged user");
+      console.log(myContext.isloggedIn);
+    },
+    [myContext.isloggedIn],
+    [myContext.loggedusername]
+  );
+
   return (
     <div className={styles["navbar-cont"]}>
       <div className={styles["navbar-logo-cont"]}>
@@ -31,16 +41,25 @@ const navbar = () => {
           <li className={styles["navbar-links"]}>Trains</li>
         </Link>
 
-        <Link href={"/login/"}>
-          <li className={styles["navbar-links"]}>Login</li>
-        </Link>
+        {myContext.isloggedIn ? (
+          <Link href={"/logout/"}>
+            <li className={styles["navbar-links"]}>Logout</li>
+          </Link>
+        ) : (
+          <Link href={"/login/"}>
+            <li className={styles["navbar-links"]}>Login</li>
+          </Link>
+        )}
         {/* <Route path="login" element={<Login />}>
           Login */}
         {/* </Route> */}
-
-        <Link href={"/signup"}>
-          <li className={styles["navbar-links"]}>Sign-Up</li>
-        </Link>
+        {myContext.isloggedIn ? (
+          <h2>{myContext.loggedusername}</h2>
+        ) : (
+          <Link href={"/signup"}>
+            <li className={styles["navbar-links"]}>Sign-Up</li>
+          </Link>
+        )}
       </ul>
       {/* </Routes> */}
     </div>
