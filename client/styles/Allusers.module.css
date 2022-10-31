@@ -1,0 +1,9 @@
+.user-cont{
+    width:500px;
+    height: 200px;
+    border-radius: 20px;
+    /* background-color: rgb(255, 244, 240); */
+    background-color: red;
+    margin:auto;
+    text-align: center;
+}

@@ -5,16 +5,20 @@ import LoginForm from "../components/loginForm/LoginForm";
 import homePic from "../public/images/trainpichomepage.jpeg";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
-
+import { useContext } from "react";
+import AppContext from "../components/AppContext/AppContext";
 // import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [user, setUser] = useState({ username: "" });
   const [show, setShow] = useState(false);
   const [ticket, setTicket] = useState([]);
+
+  const myContext = useContext(AppContext);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -104,27 +108,39 @@ export default function Home() {
     <>
       <div className={styles["outer-container"]}>
         <Image src={homePic} height="960px" width="1860px" />
-        <div className={styles["login-cont"]}>
-          {/* <LoginForm /> */}
-          <div className={styles["outer-cont"]}>
-            <h4>VIEW MY JOURNEYS </h4>
-            <div className={styles["input-outer-cont"]}>
-              <h6 style={{ textAlign: "left" }}>Username</h6>
-              <input
-                placeholder="Enter username"
-                className={styles["input-cont"]}
-                name="username"
-                onChange={handleChange}
-              />
+        {myContext.isloggedIn && myContext.loggedusername !== "Admin" ? (
+          <div className={styles["login-cont"]}>
+            <div className={styles["outer-cont"]}>
+              <h4>VIEW MY JOURNEYS </h4>
+              <div className={styles["input-outer-cont"]}>
+                <h6 style={{ textAlign: "left" }}>Username</h6>
+                <input
+                  placeholder="Enter username"
+                  className={styles["input-cont"]}
+                  name="username"
+                  onChange={handleChange}
+                />
 
-              <h6 style={{ textAlign: "left" }}>Password</h6>
-              <input placeholder="Password" className={styles["input-cont"]} />
-              <button className={styles["search-btn"]} onClick={handleSubmit}>
-                View
-              </button>
+                <h6 style={{ textAlign: "left" }}>Password</h6>
+                <input
+                  placeholder="Password"
+                  className={styles["input-cont"]}
+                />
+                <button className={styles["search-btn"]} onClick={handleSubmit}>
+                  View
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
+        {myContext.loggedusername === "Admin" ? (
+          <div className={styles["login-cont-2"]}>
+            <h2>View all users</h2>
+            <Link href={"/allusers"}>
+              <button className={styles["search-btn-2"]}>View All users</button>
+            </Link>
+          </div>
+        ) : null}
         {show ? (
           <div>
             Journeys

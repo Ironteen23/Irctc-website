@@ -6,7 +6,9 @@ const getAllBookings = async (req, res) => {
   const { username } = req.body;
   try {
     const books = await Book.find({ username: username });
-    if (!books || books.length == 0) {
+    if (!username) {
+      return res.status(401).json({ msg: `Empty username` });
+    } else if (!books || books.length == 0) {
       return res.status(400).json({ msg: `No Bookings` });
     }
     // const seats = await Seat.findAll({ name: trains.name });
@@ -121,4 +123,5 @@ module.exports = {
   getAllBookings,
   createBooking,
   deleteBooking,
+  // getBookings,
 };
