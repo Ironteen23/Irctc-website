@@ -5,7 +5,7 @@ const User = require("../models/User");
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    res.status(200).json({ users: users });
+    res.status(200).json({ users });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
       // }
       // );
       const newUser = await User.create(req.body);
-      await newUser.save();
+      // await newUser.save();
       const token = jwt.sign(
         { userId: newUser._id, name: newUser.name },
         process.env.JWT_SECRET,
@@ -42,7 +42,11 @@ const createUser = async (req, res) => {
           expiresIn: process.env.JWT_LIFETIME,
         }
       );
-      res.status(201).json({ newUser: { name: newUser.name }, token });
+      // const token = newUser.createJWT();
+      // res
+      //   .status(20)
+      //   .json({ user: { name: user.name }, token });
+      return res.status(201).json({ newUser: { name: newUser.name }, token });
     }
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -111,8 +115,18 @@ const loginUser = async (req, res) => {
       if (user.password !== password) {
         return res.status(401).json({ msg: `Incorrect Password` });
       }
+      // const token = user.createJWT();
+      const token = jwt.sign(
+        { userId: user._id, name: user.name },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: process.env.JWT_LIFETIME,
+        }
+      );
+      return res.status(200).json({ user: { name: user.name }, token });
+      // return res.redirect("/");
 
-      res.status(200).json({ msg: `login sucessful` });
+      // res.status(200).json({ msg: `login sucessful` });
     }
   } catch (error) {
     res.status(500).json({ msg: error });

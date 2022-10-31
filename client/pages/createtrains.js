@@ -48,7 +48,7 @@ const createtrains = () => {
     });
     if (response.status === 201) {
       setShow(true);
-      toast.success("Train createTrain successfully", {
+      toast.success("Train created successfully", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -59,7 +59,7 @@ const createtrains = () => {
         theme: "light",
       });
       console.log(`sucessfully signup`);
-      toast.info(`Thank you for Signing Up`, {
+      toast.info(`New Train added to DB`, {
         position: "bottom-right",
       });
     } else if (response.status === 401) {

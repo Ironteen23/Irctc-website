@@ -6,6 +6,7 @@ const seats = require("./routes/seats");
 const book = require("./routes/booking");
 const trains = require("./routes/trains");
 const users = require("./routes/authRoutes");
+const authenticateUser = require("./middleware/authentication");
 const port = 5000;
 const connectDB = require("./db/connect");
 require("dotenv").config();
@@ -37,14 +38,20 @@ app.get("/", (req, res) => {
 
 var jsonParser = bodyParser.json();
 
+// app.use("api/v1/trains/specific/:id", authenticateUser, trains);
 app.use("/api/v1/trains", trains);
-app.use("/api/v1/users", users);
 app.use("/api/v1/trains/specific", trains);
+app.use("/api/v1/users", users);
 app.use("/api/v1/users/login", jsonParser, users);
 app.use("/api/v1/users/signup", users);
 app.use("/api/v1/seats", seats);
 app.use("/api/v1/bookings", book);
 app.use("/api/v1/bookings/specific", book);
+// app.use("/api/v1/bookings/specific", authenticateUser, book);
+
+// app.use(authenticateUser);
+// app.use("/api/v1/trains/specific", trains);
+// app.use("/api/v1/trains/specific", authenticateUser, trains);
 
 const start = async () => {
   try {

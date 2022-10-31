@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
-import styles from "../styles/Search.module.css";
+import styles from "../../styles/Search.module.css";
+import { useContext } from "react";
+import AppContext from "../../components/AppContext/AppContext";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const search = () => {
+const index = () => {
   const [user, setUser] = useState({ src: "", dest: "", date: "" });
   const [show, setShow] = useState(false);
   const [details, setDetails] = useState(false);
   const [detarr, setDetarr] = useState([]);
+  const [loginwarning, setLoginWarning] = useState(false);
+
+  const myContext = useContext(AppContext);
 
   // state = {
   //   detarr: [],
@@ -121,6 +127,20 @@ const search = () => {
     // setDetarr(data);
   }, [detarr]);
 
+  const pleaseLogin = () => {
+    setLoginWarning(true);
+    toast.error(`PLEASE LOGIN`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   return (
     <>
       <div className={styles["search-bar"]}>
@@ -167,11 +187,12 @@ const search = () => {
         <>
           {detarr ? (
             <div>
-              {detarr.map((arr, i) => {
+              {detarr?.map((arr) => {
                 return (
-                  <div className={styles["train-info-cont"]} key={i}>
+                  <div className={styles["train-info-cont"]}>
                     <h1 className={styles["train-name"]}> {arr.name}</h1>
                     <h1 className={styles["train-date"]}>{arr.date}</h1>
+                    <h2 className={styles["train-id"]}>Train id :{arr._id}</h2>
                     <h3 className={styles["train-dist"]}>{arr.distance}km</h3>
                     <h2 className={styles["train-src"]}>
                       {arr.depTime} |{arr.src}
@@ -194,6 +215,21 @@ const search = () => {
                         </h3>
                         <h3>Fare :{arr.acFare}</h3>
                       </div>
+                      {myContext.isloggedIn ? (
+                        <Link href={"/search/" + arr._id} key={arr._id}>
+                          <button className={styles["book-btn"]}>
+                            BOOK NOW
+                          </button>
+                        </Link>
+                      ) : (
+                        <button
+                          className={styles["book-btn"]}
+                          onClick={pleaseLogin}
+                        >
+                          Book Now
+                        </button>
+                      )}
+                      {loginwarning ? <ToastContainer /> : null}
                     </div>
                   </div>
                 );
@@ -208,8 +244,16 @@ const search = () => {
       ) : (
         <h1>NO TRAINS AVAILABLE</h1>
       )}
+      {myContext.loggedusername === "Admin" ? (
+        <div className={styles["create-cont"]}>
+          <h2> Create Train</h2>
+          <Link href={"/createtrains/"}>
+            <button className={styles["book-btn-2"]}>Create </button>
+          </Link>
+        </div>
+      ) : null}
     </>
   );
 };
 
-export default search;
+export default index;

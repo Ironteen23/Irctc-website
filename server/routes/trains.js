@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+// const authenticateUser = require("../middleware/authentication");
 
 const {
   getAllTrains,
@@ -11,6 +12,7 @@ const {
 
 router.route("/").post(createTrain);
 router.route("/specific").post(getAllTrains);
-router.route("/:id").get(getTrain).patch(updateTrain).delete(deleteTrain);
+router.route("/:id").patch(updateTrain).delete(deleteTrain);
+router.route("/specific/:id").get(getTrain);
 
 module.exports = router;

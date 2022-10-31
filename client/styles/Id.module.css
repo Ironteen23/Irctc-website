@@ -1,0 +1,36 @@
+.page-cont{
+    width:100vw;
+    height:120vh;
+    background-color: red;
+    margin-top: -50px;
+}
+
+.ticket-cont{
+    background-color: aliceblue;
+    position: relative;
+    top: 50px;
+    width:1000px;
+    height: 700px;
+    border:1px 1px 5px black;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 300px;
+}
+
+.login-input {
+    width: 16vw;
+    /* height:45px; */
+    height: 40px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+}
+
+.prop-container {
+    text-align: center;
+    margin: 10px;
+    margin-top: 50px;
+
+}

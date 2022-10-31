@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../styles/Login.module.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import Link from "next/link";
+import AppContext from "../../components/AppContext/AppContext";
 import { ToastContainer } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const index = () => {
+  // const navigate = useNavigate();
   const [user, setUser] = useState({ name: "", password: "" });
   const [show, setShow] = useState(false);
+  const [loggedname, setLoggedName] = useState("");
+
+  const myContext = useContext(AppContext);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,6 +44,7 @@ const index = () => {
     });
     if (response.status === 200) {
       setShow(true);
+      // setLoggedName()
       toast.success("Login successfully", {
         position: "bottom-right",
         autoClose: 5000,
@@ -47,6 +55,7 @@ const index = () => {
         progress: undefined,
         theme: "light",
       });
+      // navigate("/");
       // toast.info(`Confirmation email sent`);
     } else if (response.status === 401) {
       setShow(true);
@@ -76,8 +85,33 @@ const index = () => {
     // setLoading(false);
     const data = await response.json();
 
-    console.log(data);
+    if (response.status === 200) {
+      // myContext.action(data.user.name);
+      myContext.toggle();
+      myContext.isloggedIn = true;
+      myContext.action(user.name);
+      console.log("DATA");
+      console.log(user.name);
+      // myContext.user_name = data.user.name;
+    }
+
+    console.log("USERNAME");
+    console.log(loggedname);
+    // console.log("DATA");
+    // console.log(data.user.name[0]);
   };
+
+  useEffect(() => {
+    handleSubmit;
+    // setLoggedName(data.name);
+    // console.log("USERNAME");
+    // console.log(loggedname);
+    // // myContext.loggedusername = loggedname;
+    console.log("LOLERS");
+    console.log(myContext.loggedusername);
+    console.log("login state");
+    console.log(myContext.isloggedIn);
+  }, [loggedname, myContext.isloggedIn]);
 
   return (
     <>

@@ -22,5 +22,76 @@ background: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   height:600px;
   top:140px;
-  margin-left: 300px;
+  margin-left: 200px;
+}
+
+.login-cont-2 {
+  margin: auto;
+  position: absolute;
+  width: 500px;
+  /* background-color:#f0f0f0; */
+  /* glass morphism */
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  height: 300px;
+  top: 140px;
+  margin-left: 200px;
+  text-align: center;
+}
+
+.outer-cont {
+  /* background-color: aquamarine; */
+  font-size: 2rem;
+  text-align: center;
+  padding: 20px;
+}
+
+.input-cont {
+  width: 300px;
+  margin-top: -30px;
+  height: 20px;
+  /* background-color: white; */
+  border: 1px black;
+  padding: 20px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.input-outer-cont {
+  margin-top: -100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-btn {
+  background-color: orange;
+  height: 40px;
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+
+}
+
+.search-btn-2 {
+  background-color: orange;
+  height: 40px;
+  width: 100px;
+  margin: auto;
+  margin-top: 20px;
+
+}
+
+.ticket-cont{
+  position: relative;
+  background-color: aqua;
+  border-radius: 20px;
+  left:900px;
+  top:-700px;
+  border:1px 1px 5px black;
+  width:700px;
 }

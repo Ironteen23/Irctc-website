@@ -107,3 +107,31 @@
     box-shadow: 1px 1px 10px black;
     text-align: center;
 }
+
+.book-btn{
+    width:150px;
+    height:80px;
+    font-size: 1.5rem;
+    background-color: orange;
+    position: relative;
+    right:-300px;
+    top:60px;
+}
+
+.book-btn-2 {
+    width: 120px;
+    height: 60px;
+    font-size: 1.5rem;
+    background-color: orange;
+    position: relative;
+    /* right: -300px; */
+    top: 10px;
+}
+
+.create-cont{
+    /* background-color: red; */
+    border-radius: 20px;
+    width:600px;
+    margin:auto;
+    text-align: center;
+}
