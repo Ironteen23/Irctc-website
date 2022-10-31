@@ -216,9 +216,9 @@ const test = () => {
       toast.info(`Thank you for Choosing Us`, {
         position: "bottom-right",
       });
-    } else if (response.status === 401) {
+    } else if (response.status === 404) {
       setShow(true);
-      toast.error(`SAME USERNAME ALREADY EXISTS`, {
+      toast.error(`Seats Not Available`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,

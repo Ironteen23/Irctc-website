@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import styles from "../styles/Logout.module.css";
 import AppContext from "../components/AppContext/AppContext";
 
 const logout = () => {
@@ -12,8 +13,14 @@ const logout = () => {
     console.log("clicked");
   };
   return (
-    <div onClick={setFalse} style={{ backgroundColor: "blue" }}>
-      logged Out sucessfully
+    <div className={styles["logout-cont"]}>
+      <h1>PLEASE CLICK HERE TO LOG OUT</h1>
+      {/* <button onClick={setFalse}>LOGOUT</button> */}
+      {!myContext.isloggedIn ? (
+        <h2>Logged out successfully</h2>
+      ) : (
+        <button onClick={setFalse}>LOGOUT</button>
+      )}
     </div>
   );
 };

@@ -22,35 +22,47 @@ const getAllBookings = async (req, res) => {
 
 const createBooking = async (req, res) => {
   try {
-    const book = await Book.create(req.body);
+    // const book = await Book.create(req.body);
     const a = req.body.Qty;
     const id = req.body.train_id;
     const train = await Train.findOne({ _id: id });
     if (!train) {
       return res.status(400).json({ msg: `no such Train exists` });
     } else if (req.body.coachType === "AC") {
-      const b = train.ACSeats - a;
-      const newtrain = await Train.findOneAndUpdate(
-        {
-          _id: id,
-        },
-        {
-          ACSeats: b,
-        }
-      );
-      return res.status(201).json({ book, newtrain });
-    }
-    const b = train.genSeats - a;
-    const newtrain = await Train.findOneAndUpdate(
-      {
-        _id: id,
-      },
-      {
-        genSeats: b,
-      }
-    );
+      if (a <= train.ACSeats) {
+        const book = await Book.create(req.body);
 
-    return res.status(201).json({ book, newtrain });
+        const b = train.ACSeats - a;
+        const newtrain = await Train.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          {
+            ACSeats: b,
+          }
+        );
+        return res.status(201).json({ book, newtrain });
+      } else {
+        return res.status(404).json({ msg: `NO SEATS AVAILABLE ` });
+      }
+    } else {
+      if (a <= train.genSeats) {
+        const book = await Book.create(req.body);
+        const b = train.genSeats - a;
+        const newtrain = await Train.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          {
+            genSeats: b,
+          }
+        );
+
+        return res.status(201).json({ book, newtrain });
+      } else {
+        return res.status(404).json({ msg: `NO SEATS AVAILABLE ` });
+      }
+    }
   } catch (error) {
     res.status(500).json({ msg: error });
   }
