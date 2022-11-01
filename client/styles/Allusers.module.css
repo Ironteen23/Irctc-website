@@ -2,8 +2,17 @@
     width:500px;
     height: 200px;
     border-radius: 20px;
+
     /* background-color: rgb(255, 244, 240); */
     background-color: red;
     margin:auto;
+    margin-top: 50px;
     text-align: center;
+}
+
+.beg-cont {
+    text-align: center;
+    position: relative;
+    left:-10px;
+    top:30px;
 }

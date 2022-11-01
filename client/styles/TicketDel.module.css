@@ -1,0 +1,23 @@
+.full-cont{
+    width:100vw;
+    height:100vh;
+    background-color: red;
+}
+
+.ticket-cont{
+    margin: auto;
+    position: relative;
+    left:50px;
+    top:20px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    width:800px;
+    height:600px;
+    text-align: center;
+}
+
+.del-btn{
+    width:120px;
+    height:60px;
+    background-color: orange;
+}

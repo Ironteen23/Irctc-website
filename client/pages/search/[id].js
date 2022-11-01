@@ -103,6 +103,8 @@ const test = () => {
           ["depTime"]: data.depTime,
 
           ["username"]: user,
+
+          ["status"]: "Confirmed",
         };
       });
 

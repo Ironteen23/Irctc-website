@@ -31,6 +31,27 @@ export default function Home() {
     });
   };
 
+  // const handleModify = async (e) =>{
+
+  //      e.preventDefault();
+  //   console.log("clicked on register");
+  //   console.log(user);
+  //   const submitValues = { ...user };
+  //   console.log("Values submitted: ", submitValues);
+  //   const response = await fetch(
+  //     "http://localhost:5000/api/v1/bookings/update",
+  //     {
+  //       method: "POST",
+  //       credentials: "include",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(submitValues),
+  //     }
+  //   );
+
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("clicked on register");
@@ -161,6 +182,10 @@ export default function Home() {
                   <h2>QTY :{ticket.Qty}</h2>
                   <h2>FARE : {ticket.fare}</h2>
                   <h2>Type : {ticket.coachType}</h2>
+                  <h1>STATUS : {ticket.status}</h1>
+                  <Link href={"/" + ticket._id}>
+                    <button>DELETE TICKET</button>
+                  </Link>
                 </div>
               );
             })}
