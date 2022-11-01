@@ -9,6 +9,7 @@ const logout = () => {
   const setFalse = () => {
     myContext.toggle();
     myContext.isloggedIn = false;
+    myContext.action("");
     console.log(myContext.isloggedIn);
     console.log("clicked");
   };
