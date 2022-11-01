@@ -133,6 +133,7 @@ const jid = () => {
             return (
               <div key={i} className={styles["ticket-cont"]}>
                 <h1>{ticket._id}</h1>
+                <h1>STATUS :{ticket.status}</h1>
                 <h2>{ticket.trainName}</h2>
                 <h2>{ticket.src}</h2>
                 <h2>{ticket.dest}</h2>

@@ -87,41 +87,85 @@ const createBooking = async (req, res) => {
 //   // res.send("update train");
 // };
 
-// const getTrain = async (req, res) => {
-//   try {
-//     const { id: trainSource } = req.params;
-//     const train = await Train.findOne({
-//       name: trainSource,
-//     });
-
-//     if (!train) {
-//       return res.status(404).json({ msg: `No trains Found` });
-//     }
-//     return res.status(200).json({ train });
-//   } catch (error) {
-//     res.status(500).json({ msg: error });
-//   }
-
-//   // res.json({ id: req.params.id });
-// };
-// will give the specific train currently gives train by source destination
-
-const deleteBooking = async (req, res) => {
+const getBookings = async (req, res) => {
   try {
-    const { id: _id } = req.params;
-    const book = await Train.findOneAndDelete({ _id: id });
+    const id = req.params.id;
+    const book = await Book.findOne({
+      _id: id,
+    });
+
     if (!book) {
-      return res.status(404).json({ msg: `No such booking exists` });
+      return res.status(404).json({ msg: `No Such Bookings Found` });
     }
-    return res.status(200).json({ train: null, status: "sucess" });
+    return res.status(200).json({ book });
   } catch (error) {
     res.status(500).json({ msg: error });
+  }
+
+  // res.json({ id: req.params.id });
+};
+// will give the specific train currently gives train by source destination
+
+const updateBooking = async (req, res) => {
+  try {
+    const a = req.body.Qty;
+    const id = req.body.train_id;
+    const ticket = req.body.ticket_id;
+    const type = req.body.coachType;
+
+    const train = await Train.findOne({ _id: id });
+    // if (!train) {
+    //   return res.status(400).json({ msg: `no such Train exists` });
+    // } else {
+    // const newtrain = null;
+    if (type === "AC") {
+      const b = a + train.ACSeats;
+      const newtrain = await Train.findOneAndUpdate(
+        { _id: id },
+        {
+          ACSeats: b,
+        }
+      );
+
+      const book = await Book.findOneAndUpdate(
+        { _id: ticket },
+        {
+          status: "Cancelled",
+        }
+      );
+      if (!book || book.length == 0) {
+        return res.status(404).json({ msg: `No such booking exists` });
+      }
+      return res.status(200).json({ book, newtrain });
+    }
+    const b = a + train.genSeats;
+    const newtrain = await Train.findOneAndUpdate(
+      { _id: id },
+      {
+        genSeats: b,
+      }
+    );
+
+    const book = await Book.findOneAndUpdate(
+      { _id: ticket },
+      {
+        status: "Cancelled",
+      }
+    );
+    if (!book || book.length == 0) {
+      return res.status(404).json({ msg: `No such booking exists` });
+    }
+    return res.status(200).json({ book, newtrain });
+
+    // }
+  } catch (error) {
+    return res.status(500).json({ msg: error });
   }
 };
 
 module.exports = {
   getAllBookings,
   createBooking,
-  deleteBooking,
-  // getBookings,
+  updateBooking,
+  getBookings,
 };

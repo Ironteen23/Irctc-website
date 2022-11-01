@@ -60,8 +60,10 @@ const index = () => {
     <>
       {myContext.loggedusername === "Admin" ? (
         <div>
-          <h2>ALL USERS</h2>
-          <button onClick={getData}>Get all users</button>
+          <div className={styles["beg-cont"]}>
+            <h2>ALL USERS</h2>
+            <button onClick={getData}>Get all users</button>
+          </div>
           {det && det.length != 0 ? (
             <div>
               {det.map((arr, i) => {
