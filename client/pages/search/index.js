@@ -215,13 +215,14 @@ const index = () => {
                         </h3>
                         <h3>Fare :{arr.acFare}</h3>
                       </div>
-                      {myContext.isloggedIn ? (
+                      {myContext.isloggedIn &&
+                      myContext.loggedusername !== "Admin" ? (
                         <Link href={"/search/" + arr._id} key={arr._id}>
                           <button className={styles["book-btn"]}>
                             BOOK NOW
                           </button>
                         </Link>
-                      ) : (
+                      ) : myContext.loggedusername === "Admin" ? null : (
                         <button
                           className={styles["book-btn"]}
                           onClick={pleaseLogin}
@@ -229,6 +230,11 @@ const index = () => {
                           Book Now
                         </button>
                       )}
+                      {myContext.loggedusername === "Admin" ? (
+                        <Link href={"/search/" + arr._id}>
+                          <button className={styles["book-btn"]}>Modify</button>
+                        </Link>
+                      ) : null}
                       {loginwarning ? <ToastContainer /> : null}
                     </div>
                   </div>
