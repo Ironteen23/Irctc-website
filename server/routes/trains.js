@@ -12,7 +12,8 @@ const {
 
 router.route("/").post(createTrain);
 router.route("/specific").post(getAllTrains);
-router.route("/:id").patch(updateTrain).delete(deleteTrain);
+router.route("/:id").delete(deleteTrain);
 router.route("/specific/:id").get(getTrain);
+router.route("/update").post(updateTrain);
 
 module.exports = router;

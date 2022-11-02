@@ -30,17 +30,28 @@ const createTrain = async (req, res) => {
 
 const updateTrain = async (req, res) => {
   try {
-    const { id: trainName } = req.params;
-    const train = await Train.findOneAndUpdate({ name: trainName }, req.body);
+    const id = req.body.id;
+    const a = req.body.newACfare;
+    const b = req.body.newGenfare;
+    const train = await Train.findOneAndUpdate(
+      { _id: id },
+      {
+        acFare: a,
+        genFare: b,
+      }
+    );
     if (!train) {
       return res.status(404).json({ msg: `No train found` });
     }
-    return res.status(200).json({ name: trainName }, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    return res.status(200).json(
+      { msg: `sucessfully updated` }
+      // {
+      //   new: true,
+      //   runValidators: true,
+      // }
+    );
   } catch (error) {
-    res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error });
   }
   // res.send("update train");
 };

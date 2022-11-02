@@ -20,6 +20,11 @@ import "react-toastify/dist/ReactToastify.css";
 const test = () => {
   const [data, setData] = useState([]);
   const [price, setPrice] = useState(0);
+  const [newfare, setNewFare] = useState({
+    newACfare: "",
+    newGenfare: "",
+    id: "",
+  });
   const [show, setShow] = useState(false);
   const [ticket, setTicket] = useState({
     trainName: "",
@@ -58,6 +63,17 @@ const test = () => {
     });
   };
 
+  const modifyChange = (e) => {
+    e.preventDefault();
+    setNewFare((prevState) => {
+      console.log(ticket);
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   const getData = async () => {
     var query = window.location.href.split("search/");
     console.log("query");
@@ -73,62 +89,59 @@ const test = () => {
     setData(train.train);
   };
 
-  useEffect(() => {
-    getData;
-    getFare;
-    console.log("data");
-    console.log(data);
-    if (data.length != 0) {
-      setTicket((prevState) => {
-        console.log(ticket);
-        return {
-          ...prevState,
-          //  [e.target.name]: e.target.value,
-          // setTicket
-          ["trainName"]: data.name,
-          //   setTicket
-          ["src"]: data.src,
-          //   setTicket
-          ["dest"]: data.dest,
-          //   setTicket
-          ["distance"]: data.distance,
-          //   setTicket
-          ["date"]: data.date,
+  useEffect(
+    () => {
+      getData;
+      getFare;
+      console.log("data");
+      console.log(data);
+      if (data.length != 0) {
+        setTicket((prevState) => {
+          console.log(ticket);
+          return {
+            ...prevState,
+            //  [e.target.name]: e.target.value,
+            // setTicket
+            ["trainName"]: data.name,
+            //   setTicket
+            ["src"]: data.src,
+            //   setTicket
+            ["dest"]: data.dest,
+            //   setTicket
+            ["distance"]: data.distance,
+            //   setTicket
+            ["date"]: data.date,
 
-          ["train_id"]: data._id,
+            ["train_id"]: data._id,
 
-          //   setTicket
-          ["arrivalTime"]: data.arrivalTime,
-          //   setTicket
-          ["depTime"]: data.depTime,
+            //   setTicket
+            ["arrivalTime"]: data.arrivalTime,
+            //   setTicket
+            ["depTime"]: data.depTime,
 
-          ["username"]: user,
+            ["username"]: user,
 
-          ["status"]: "Confirmed",
-        };
-      });
+            ["status"]: "Confirmed",
+          };
+        });
 
-      //   if (data.coachType === "AC") {
-      //     let a = data.acFare;
-      //     let b = data.Qty;
-      //     const c = a * b;
-      //     setPrice(c);
-      //   }
-      //   else {
-      //     let a = data.genFare;
-      //     let b = data.Qty;
-      //     const c = a * b;
-      //     setPrice(c);
-      //   }
-      //   setTicket[trainName] = data.name;
-      //   setTicket[src] = data.src;
-      //   setTicket[dest] = data.dest;
-      //   setTicket[distance] = data.distance;
-      //   setTicket[date] = data.date;
-      //   setTicket[arrivalTime] = data.arrivalTime;
-      //   setTicket[depTime] = data.depTime;
-    }
-  }, [data]);
+        setNewFare((prevState) => {
+          console.log(ticket);
+          return {
+            ...prevState,
+            //  [e.target.name]: e.target.value,
+            // setTicket
+            ["id"]: data._id,
+          };
+        });
+
+        console.log("NEW FARE");
+        console.log(newfare);
+      }
+    },
+    [data],
+    [newfare]
+  );
 
   const getFare = () => {
     const q = ticket.Qty;
@@ -181,6 +194,66 @@ const test = () => {
         ["coachType"]: "General",
       };
     });
+  };
+
+  const handleModify = async (e) => {
+    e.preventDefault();
+    console.log("clicked on register");
+    console.log(newfare);
+    const submitValues = { ...newfare };
+    console.log("Values submitted: ", submitValues);
+    const response = await fetch("http://localhost:5000/api/v1/trains/update", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitValues),
+    });
+    if (response.status === 200) {
+      setShow(true);
+      toast.success("Modified successfull", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(`sucessfully signup`);
+      toast.info(`Thank you for Choosing Us`, {
+        position: "bottom-right",
+      });
+    } else if (response.status === 404) {
+      setShow(true);
+      toast.error(`No Such Train found`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (response.status === 500) {
+      setShow(true);
+      toast.error(`Internal Error Please Try Again`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    // setLoading(false);
+    const data = await response.json();
+    console.log(data);
   };
 
   const bookTicket = async (e) => {
@@ -252,7 +325,9 @@ const test = () => {
   return (
     <>
       <div className={styles["page-cont"]} onClick={getData}>
-        {(data && data.length) != 0 ? (
+        {/* { user !== "Admin" ? ( */}
+
+        {user !== "Admin" && data && data.length != 0 ? (
           <div className={styles["ticket-cont"]}>
             <h2>{data.name}</h2>
             <h2>{data.data}</h2>
@@ -269,7 +344,7 @@ const test = () => {
                 <input
                   className={styles["login-input"]}
                   type="text"
-                  placeholder="Enter Username"
+                  placeholder="Enter Qty"
                   onChange={handleChange}
                   name="Qty"
                 />
@@ -296,9 +371,40 @@ const test = () => {
 
             <button onClick={bookTicket}>BOOK TICKET</button>
           </div>
-        ) : (
-          <h2>Loading</h2>
-        )}
+        ) : null}
+        {user === "Admin" && data && data.length != 0 ? (
+          <div className={styles["modify-cont"]}>
+            <h1>Train ID: {data._id}</h1>
+            <h1>Train name:{data.name}</h1>
+            <div className={styles["prop-container"]}>
+              <label>
+                New General Fare:
+                <br></br>
+                <input
+                  className={styles["login-input"]}
+                  type="text"
+                  placeholder=" New Genereal Fare"
+                  onChange={modifyChange}
+                  name="newGenfare"
+                />
+              </label>
+            </div>
+            <div className={styles["prop-container"]}>
+              <label>
+                New AC Fare:
+                <br></br>
+                <input
+                  className={styles["login-input"]}
+                  type="text"
+                  placeholder=" New AC Fare"
+                  onChange={modifyChange}
+                  name="newACfare"
+                />
+              </label>
+            </div>
+            <button onClick={handleModify}>MODIFY FARES</button>
+          </div>
+        ) : null}
         {show ? <ToastContainer /> : null}
       </div>
     </>
