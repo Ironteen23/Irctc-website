@@ -19,18 +19,28 @@ export default function Home() {
   const [ticket, setTicket] = useState([]);
 
   const myContext = useContext(AppContext);
+  const lol = myContext.loggedusername;
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setUser((prevState) => {
-      console.log(user);
-      return {
-        ...prevState,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
+  user["username"] = lol;
 
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   setUser((prevState) => {
+  //     console.log(user);
+  //     return {
+  //       ...prevState,
+  //       [e.target.name]: e.target.value,
+  //     };
+  //   });
+  // };
+
+  // setUser((prevState) => {
+  //   console.log(user);
+  //   return {
+  //     ...prevState,
+  //     ["username"]: lol,
+  //   };
+  // });
   // const handleModify = async (e) =>{
 
   //      e.preventDefault();
@@ -129,25 +139,31 @@ export default function Home() {
     <>
       <div className={styles["outer-container"]}>
         <Image src={homePic} height="960px" width="1860px" />
+        <div className={styles["title-cont"]}>
+          <h1 className={styles["title-head"]}>WELCOME TO INDIAN RAILWAYS</h1>
+        </div>
         {myContext.isloggedIn && myContext.loggedusername !== "Admin" ? (
-          <div className={styles["login-cont"]}>
+          <div className={styles["login-cont-3"]}>
             <div className={styles["outer-cont"]}>
               <h4>VIEW MY JOURNEYS </h4>
               <div className={styles["input-outer-cont"]}>
-                <h6 style={{ textAlign: "left" }}>Username</h6>
+                {/* <h6 style={{ textAlign: "left" }}>Username</h6>
                 <input
                   placeholder="Enter username"
                   className={styles["input-cont"]}
                   name="username"
                   onChange={handleChange}
-                />
-
+                /> */}
+                {/* 
                 <h6 style={{ textAlign: "left" }}>Password</h6>
                 <input
                   placeholder="Password"
                   className={styles["input-cont"]}
-                />
-                <button className={styles["search-btn"]} onClick={handleSubmit}>
+                /> */}
+                <button
+                  className={styles["search-btn-3"]}
+                  onClick={handleSubmit}
+                >
                   View
                 </button>
               </div>
