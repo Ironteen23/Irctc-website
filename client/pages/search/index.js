@@ -25,10 +25,19 @@ const index = () => {
     e.preventDefault();
     setUser((prevState) => {
       console.log(user);
-      return {
-        ...prevState,
-        [e.target.name]: e.target.value,
-      };
+      if (e.target.name === "date") {
+        let a = e.target.value;
+        var b = a.split("-").reverse().join("-");
+        return {
+          ...prevState,
+          [e.target.name]: b,
+        };
+      } else {
+        return {
+          ...prevState,
+          [e.target.name]: e.target.value,
+        };
+      }
     });
   };
   //   const data = [];
@@ -169,6 +178,7 @@ const index = () => {
             placeholder="03-11-2022"
             className={styles["input-cont"]}
             name="date"
+            type="date"
             onChange={handleChange}
           />
         </div>

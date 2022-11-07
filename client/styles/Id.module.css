@@ -34,3 +34,12 @@
     margin-top: 50px;
 
 }
+
+.modify-cont{
+    margin:auto;
+    background-color: aliceblue;
+    position: relative;
+    top:100px;
+    width:80vw;
+}
+
