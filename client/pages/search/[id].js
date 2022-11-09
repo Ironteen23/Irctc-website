@@ -6,6 +6,7 @@ import AppContext from "../../components/AppContext/AppContext";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { InfinitySpin } from "react-loader-spinner";
 
 // export const getStaticProps = async (context) => {
 //   const id = context.params.id;
@@ -20,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 const test = () => {
   const [data, setData] = useState([]);
   const [price, setPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [newfare, setNewFare] = useState({
     newACfare: "",
     newGenfare: "",
@@ -75,6 +77,7 @@ const test = () => {
   };
 
   const getData = async () => {
+    setLoading(false);
     var query = window.location.href.split("search/");
     console.log("query");
     console.log(query[1]);
@@ -326,17 +329,28 @@ const test = () => {
     <>
       <div className={styles["page-cont"]} onClick={getData}>
         {/* { user !== "Admin" ? ( */}
+        {loading ? (
+          <div className={styles["loader-spinner"]}>
+            <InfinitySpin width="200" height="10px" color="white" />
+            <h2>Loading ...</h2>
+          </div>
+        ) : null}
 
         {user !== "Admin" && data && data.length != 0 ? (
           <div className={styles["ticket-cont"]}>
-            <h2>{data.name}</h2>
-            <h2>{data.data}</h2>
-            <h2>{data._id}</h2>
-            <h2>{data.distance}</h2>
-            <h2>{data.src}</h2>
-            <h2>{data.arrivalTime}</h2>
-            <h2>{data.depTime}</h2>
-            <h2>{data.dest}</h2>
+            <h2 className={styles["train-name"]}>Name: {data.name}</h2>
+
+            {/* <h2 className={styles["train-data"]}>{data.data}</h2> */}
+            <h2 className={styles["train-id"]}>ID: {data._id}</h2>
+            <h2 className={styles["train-dist"]}>{data.distance} KM</h2>
+            <h2 className={styles["train-src"]}>Source : {data.src}</h2>
+            <h2 className={styles["train-arrTime"]}>
+              ArrTime : {data.arrivalTime}
+            </h2>
+            <h2 className={styles["train-depTime"]}>
+              DepTime : {data.depTime}
+            </h2>
+            <h2 className={styles["train-dest"]}>Destination : {data.dest}</h2>
             <div className={styles["prop-container"]}>
               <label>
                 QTY:
@@ -352,7 +366,7 @@ const test = () => {
             </div>
             <div className={styles["prop-container"]}>
               <label>
-                coachType:
+                CoachType:
                 <br></br>
                 <select
                   className={styles["login-input"]}

@@ -45,9 +45,10 @@
 
 .train-info-cont {
     width:90vw;
-    height:440px;
+    height:460px;
     margin-left: 80px;
-    background-color: aliceblue;
+    background-color: white;
+    /* border:1px blue solid; */
     box-shadow:2px 2px 5px black ;
     /* text-align: center; */
 }
@@ -82,6 +83,7 @@
         left: 100px;
         top: -50px;
     text-align: center;
+    font-size: 1.5rem;
 }
 
 .train-dest{

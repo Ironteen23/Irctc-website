@@ -31,9 +31,16 @@
 .prop-container {
     text-align: center;
     margin: 10px;
-    margin-top: 50px;
+    margin-top: 20px;
 
 }
+
+.loader-spinner{
+    position: relative;
+    top:100px;
+    left:700px;
+}
+
 
 .modify-cont{
     margin:auto;
@@ -43,3 +50,50 @@
     width:80vw;
 }
 
+
+.train-name {
+    position: relative;
+    left:-300px;
+    font-size: 2rem;
+    top: 60px;
+}
+
+
+.train-id{
+position: relative;
+    left: 230px;
+    font-size: 2rem;
+    top:-10px;
+}
+
+.train-dist{
+position: relative;
+    top:100px;
+}
+
+/* .train-dist{
+
+} */
+
+.train-src{
+    position: relative;
+        left: -350px;
+}
+
+.train-arrTime {
+    position: relative;
+        left: 350px;
+        top:50px;
+}
+
+.train-depTime {
+position: relative;
+    left: -350px;
+        top: -10px;
+}
+
+.train-dest {
+    position: relative;
+        left: 350px;
+        top:-150px;
+}

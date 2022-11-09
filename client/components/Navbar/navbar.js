@@ -54,7 +54,9 @@ const navbar = () => {
           Login */}
         {/* </Route> */}
         {myContext.isloggedIn ? (
-          <h2>{myContext.loggedusername}</h2>
+          <h2 className={styles["navbar-logged-name"]}>
+            {myContext.loggedusername}
+          </h2>
         ) : (
           <Link href={"/signup"}>
             <li className={styles["navbar-links"]}>Sign-Up</li>

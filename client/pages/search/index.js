@@ -205,10 +205,10 @@ const index = () => {
                     <h2 className={styles["train-id"]}>Train id :{arr._id}</h2>
                     <h3 className={styles["train-dist"]}>{arr.distance}km</h3>
                     <h2 className={styles["train-src"]}>
-                      {arr.depTime} |{arr.src}
+                      Dep Time: {arr.depTime} |{arr.src}
                     </h2>
                     <h2 className={styles["train-dest"]}>
-                      {arr.arrivalTime} |{arr.dest}
+                      Arrival Time: {arr.arrivalTime} |{arr.dest}
                     </h2>
                     <div className={styles["train-coach-cont"]}>
                       <div className={styles["train-coach"]}>

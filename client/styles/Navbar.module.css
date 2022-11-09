@@ -46,6 +46,13 @@
     color:black;
 }
 
+.navbar-logged-name{
+    /* margin-left: 300px; */
+    /* color:red; */
+    position: relative;
+    left:140px;
+}
+
 .navbar-links:hover::after {
     width: 100%;
 }
