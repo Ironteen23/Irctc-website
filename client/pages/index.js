@@ -189,19 +189,53 @@ export default function Home() {
             {ticket.map((ticket, i) => {
               return (
                 <div key={i} className={styles["ticket-cont"]}>
-                  <h1>{ticket._id}</h1>
-                  <h2>{ticket.trainName}</h2>
-                  <h2>{ticket.src}</h2>
-                  <h2>{ticket.dest}</h2>
-                  <h2>{ticket.arrivalTime}</h2>
-                  <h2>{ticket.depTime}</h2>
-                  <h2>QTY :{ticket.Qty}</h2>
-                  <h2>FARE : {ticket.fare}</h2>
-                  <h2>Type : {ticket.coachType}</h2>
-                  <h1>STATUS : {ticket.status}</h1>
-                  <Link href={"/" + ticket._id}>
-                    <button>DELETE TICKET</button>
-                  </Link>
+                  {/* <h1 className={styles["ticket-id"]}>ID:{ticket._id}</h1> */}
+                  <h2 className={styles["ticket-name"]}>{ticket.trainName}</h2>
+                  <h2 className={styles["ticket-src"]}>
+                    Source : {ticket.src}
+                  </h2>
+                  <h2 className={styles["ticket-dest"]}>
+                    Destination : {ticket.dest}
+                  </h2>
+                  <h2 className={styles["ticket-arrTime"]}>
+                    {ticket.arrivalTime}
+                  </h2>
+                  <h2 className={styles["ticket-depTime"]}>{ticket.depTime}</h2>
+                  <h2 className={styles["ticket-date"]}>Date: {ticket.date}</h2>
+                  <h2 className={styles["ticket-Qty"]}>QTY :{ticket.Qty}</h2>
+                  <h2 className={styles["ticket-fare"]}>
+                    FARE : {ticket.fare}
+                  </h2>
+                  <h2 className={styles["ticket-coachType"]}>
+                    Type : {ticket.coachType}
+                  </h2>
+                  {ticket.status === "Confirmed" ? (
+                    <h1 className={styles["ticket-status"]}>
+                      STATUS : {ticket.status}
+                    </h1>
+                  ) : (
+                    <h1
+                      className={styles["ticket-status"]}
+                      style={{ color: "red" }}
+                    >
+                      STATUS : {ticket.status}
+                    </h1>
+                  )}
+                  {/* <h1 className={styles["ticket-status"]}>
+                    STATUS : {ticket.status}
+                  </h1> */}
+                  {ticket.status === "Confirmed" ? (
+                    <Link href={"/" + ticket._id}>
+                      <button className={styles["ticket-link"]}>
+                        DELETE TICKET
+                      </button>
+                    </Link>
+                  ) : null}
+                  {/* <Link href={"/" + ticket._id}>
+                    <button className={styles["ticket-link"]}>
+                      DELETE TICKET
+                    </button>
+                  </Link> */}
                 </div>
               );
             })}

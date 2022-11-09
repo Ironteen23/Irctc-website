@@ -59,7 +59,7 @@ const index = () => {
   return (
     <>
       {myContext.loggedusername === "Admin" ? (
-        <div>
+        <div style={{ backgroundColor: "red" }}>
           <div className={styles["beg-cont"]}>
             <h2>ALL USERS</h2>
             <button onClick={getData}>Get all users</button>
@@ -69,8 +69,8 @@ const index = () => {
               {det.map((arr, i) => {
                 return (
                   <div className={styles["user-cont"]} key={i}>
-                    <h2>{arr.name}</h2>
-                    <h2>{arr._id}</h2>
+                    <h2>UserName : {arr.name}</h2>
+                    <h2>User ID :{arr._id}</h2>
                     <Link href={"/allusers/" + arr.name}>
                       <button>View Journeys </button>
                     </Link>

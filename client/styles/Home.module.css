@@ -118,12 +118,94 @@ background: rgba(255, 255, 255, 0.3);
 
 .ticket-cont{
   position: relative;
-  background-color: aqua;
+  /* background-color: aqua; */
+  background-color: aliceblue;
+
+  /* background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px; */
+
+
   border-radius: 20px;
   left:900px;
+  height:400px;
   top:-700px;
-  border:1px 1px 5px black;
+  /* border:1px 1px 5px black; */
   width:700px;
+  text-align: center;
+}
+
+.ticket-name{
+  position: relative;
+  left:-250px;
+  font-size: 2rem;
+  top:10px;
+}
+
+.ticket-src{
+  position: relative;
+  left:-240px;
+}
+
+.ticket-dest {
+  position: relative;
+  left:220px;
+  top:-50px;
+}
+
+.ticket-depTime{
+  position: relative;
+  left:-250px;
+  top:-100px;
+}
+
+.ticket-arrTime {
+  position: relative;
+  left: 220px;
+  top: -50px;
+}
+
+.ticket-date{
+  position: relative;
+  top:-260px;
+  left:220px;
+}
+
+.ticket-Qty{
+  position: relative;
+  top:-120px;
+  left:-240px;
+}
+
+.ticket-fare{
+  position: relative;
+  top:-165px;
+  
+}
+
+.ticket-coachType{
+  position: relative;
+  top:-220px;
+  left:220px;
+}
+
+.ticket-status
+{
+  position: relative;
+  top:-220px;
+  color: green;
+}
+
+.ticket-link{
+  position: relative;
+  top:-220px;
+  width:200px;
+  height: 40px;
+  background-color: orange;
 }
 
 .title-cont{
